@@ -1,0 +1,12 @@
+.skin-blue .main-header .logo {
+  background-color: Green;
+}
+.skin-blue .main-header .logo:hover {
+  background-color: Green;
+}
+.skin-blue .main-header .navbar {
+  background-color: Green;
+}
+a{
+  color: white !important;
+}
