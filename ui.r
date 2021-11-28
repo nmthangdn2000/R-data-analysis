@@ -1,5 +1,5 @@
 # import tab
-source('tab/tab1.r')
+source('component/tab1.r')
 
 # Layout/Table of Contents ------------------------------------------------
 # 1. Create Header, Sidebar, Body --> UI

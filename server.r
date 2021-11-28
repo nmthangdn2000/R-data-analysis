@@ -4,16 +4,12 @@ library(shinyWidgets)
 library(flextable)
 library(DT)
 
+# import service
+source('service/tab1.service.r')
+
 basket <- read.csv("dataset/basket.csv")
 
 # 4. Create server that responds to user interaction ----------------------
 server <- function(session, input, output) {
-  output$table_basket <- renderDataTable({
-    datatable(
-      basket, 
-      options = list(
-        pageLength = 15, autoWidth = TRUE
-      )
-    )
-  })
+  tab1Service(input, output, basket)
 }
