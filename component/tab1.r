@@ -1,6 +1,5 @@
-tab1 <- tabItem("tab1",
+home <- tabItem("home",
     div(
-      p("Dashboard tab content"),
-      DT::dataTableOutput("table_basket"),style = "height:100%;"
+      DT::dataTableOutput("table_basket"),style = "height:100%; width:100%"
    )
 )

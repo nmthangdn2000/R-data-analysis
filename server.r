@@ -1,9 +1,3 @@
-library(shiny)
-library(shinydashboard)
-library(shinyWidgets)
-library(flextable)
-library(DT)
-
 # import service
 source('service/tab1.service.r')
 

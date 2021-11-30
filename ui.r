@@ -1,3 +1,10 @@
+library(shiny)
+library(shinydashboard)
+library(shinyWidgets)
+library(flextable)
+library(DT)
+
+
 # import tab
 source('component/tab1.r')
 
@@ -21,7 +28,7 @@ sidebar <- dashboardSidebar(
   disable=FALSE,
   sidebarMenu(
     id = 'MenuTabs',
-    menuItem("Tab1", tabName = "tab1", selected = TRUE),
+    menuItem("Home", tabName = "home", selected = TRUE),
     menuItem("Tab2", tabName = "tab2"),
     uiOutput('ui')
   )
@@ -38,8 +45,11 @@ sidebar <- dashboardSidebar(
 
 
 body <- dashboardBody(
+  tags$head(
+    tags$link(rel = "stylesheet", type = "text/css", href = "css/index.css")
+  ),
   tabItems(
-    tab1,
+    home,
     tabItem("tab2",
       "Widgets tab content"
     )
@@ -48,6 +58,4 @@ body <- dashboardBody(
 
 # 1. d) This code generates the UI based on all the above elements --------
 ui <- dashboardPage(header, sidebar, body)
-
-
 
