@@ -5,5 +5,5 @@ basket <- read.csv("dataset/basket.csv")
 
 # 4. Create server that responds to user interaction ----------------------
 server <- function(session, input, output) {
-  tab1Service(input, output, basket)
+  homeService(input, output, basket)
 }
