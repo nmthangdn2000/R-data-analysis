@@ -3,10 +3,12 @@ library(shinydashboard)
 library(shinyWidgets)
 library(flextable)
 library(DT)
-
+library(ggplot2)
+library(plotly)
 
 # import tab
 source('component/home.r')
+source('component/revenue.r')
 
 # Layout/Table of Contents ------------------------------------------------
 # 1. Create Header, Sidebar, Body --> UI
@@ -29,7 +31,7 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     id = 'MenuTabs',
     menuItem("Home", tabName = "home", selected = TRUE),
-    menuItem("Tab2", tabName = "tab2"),
+    menuItem("Revenue", tabName = "revenue"),
     uiOutput('ui')
   )
 
@@ -50,9 +52,7 @@ body <- dashboardBody(
   ),
   tabItems(
     home,
-    tabItem("tab2",
-      "Widgets tab content"
-    )
+    revenue
   )
 )
 
