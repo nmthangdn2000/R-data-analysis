@@ -6,7 +6,7 @@ library(DT)
 
 
 # import tab
-source('component/tab1.r')
+source('component/home.r')
 
 # Layout/Table of Contents ------------------------------------------------
 # 1. Create Header, Sidebar, Body --> UI
