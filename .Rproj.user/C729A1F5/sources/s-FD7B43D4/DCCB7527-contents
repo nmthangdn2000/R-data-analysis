@@ -1,0 +1,45 @@
+library('ggplot2')
+
+# Weight <- c(140,155,159,179,192,200,212)
+# Height <- c(60,62,67,70,71,72,75)
+# data <- data.frame(Weight, Height) 
+# 
+# plot(data$Weight,data$Height)
+# 
+# linear <- lm(formula = Weight~Height, data = data)
+# 
+# summary(linear)
+
+
+#create dataset 
+df <- data.frame(hours=c(1, 2, 4, 5, 5, 6, 6, 7, 8, 10, 11, 11, 12, 12, 14)
+                 , score=c(64, 66, 76, 73, 74, 81, 83, 82, 80, 88, 84, 82, 91, 93, 89)) 
+
+plot(df$hours,df$score, main = "Students Hours")
+scatter.smooth(df$hours, df$score, main='Hours studied vs Exam Score')
+
+# boxplot(df$hours,df$score,
+#         main="Hours studied vs Exam score",
+#         xlab="Hours",
+#         ylab="Score",
+#         col="orange",
+#         border = "brown")
+
+
+plot(df$score~df$hours)
+model <- lm(score~hours,df)
+model
+summary(model)
+
+abline(model,col="darkblue")
+
+data <- read.csv("D:/dataset/dataset1.csv", sep=",")
+View(data)
+
+boxplot(data$income,data$happiness,col="orange")
+
+model <- lm(income~happiness,data)
+model
+summary(model)
+plot(data$happiness,data$income,main="Happiness vs Income",xlab="Happiness Level", ylab="Income Level")
+abline(model,col="darkblue")
