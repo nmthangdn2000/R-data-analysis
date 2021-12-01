@@ -5,6 +5,7 @@ library(flextable)
 library(DT)
 library(ggplot2)
 library(plotly)
+library(gganimate)
 
 # import tab
 source('component/home.r')

@@ -27,7 +27,10 @@ revenueService <- function(input, output, dataset){
     colnames(top5) <- c("Item", "TotalPrice")
     df2 <- data.frame(Item=top5$Item,
                      TotalPrice=top5$TotalPrice)
-    ggplot(data=df2, aes(x=Item, y=TotalPrice)) +
-      geom_bar(stat="identity", width=0.5)
+    gp <- ggplot(data=df2, aes(x=Item, y=TotalPrice)) + 
+      geom_bar(stat="identity", width=0.5)+
+        transition_states(showw, wrap = F, transition_length = 5) +
+          enter_fade()
+
   })
 }
