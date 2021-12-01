@@ -1,15 +1,8 @@
+
 revenueService <- function(input, output, dataset){
-  print(unique(dataset$Item))
-  output$revenue_table_basket <- renderDataTable({
-    datatable(
-      dataset, 
-      options = list(
-        pageLength = 15, autoWidth = TRUE
-      )
-    )
-  })
   str(dataset)
-  output$revenue_chart <- renderPlotly({
+  # top 5 sản phẩm mua nhiều nhất
+  output$revenue_chart_top_5 <- renderPlotly({
     top5Price <- c()
     for (i in unique(dataset$Item)) {
       item <- dataset[dataset$Item == i,]
@@ -25,12 +18,34 @@ revenueService <- function(input, output, dataset){
     top5 <- head(top5, 5)
     print(top5$Item)
     colnames(top5) <- c("Item", "TotalPrice")
-    df2 <- data.frame(Item=top5$Item,
-                     TotalPrice=top5$TotalPrice)
-    gp <- ggplot(data=df2, aes(x=Item, y=TotalPrice)) + 
+    
+    a <- data.frame(Item=top5$Item, TotalPrice=c(0,0,0,0,0), frame=rep('a',5))
+    b <- data.frame(Item=top5$Item, TotalPrice=top5$TotalPrice, frame=rep('b',5))
+    data <- rbind(a,b) 
+    
+    gp <- ggplot(data=data, aes(x=Item, y=TotalPrice, fill=Item)) + 
       geom_bar(stat="identity", width=0.5)+
-        transition_states(showw, wrap = F, transition_length = 5) +
-          enter_fade()
-
+      transition_states(
+        frame,
+        transition_length = 2,
+        state_length = 1
+      ) +
+      ease_aes('sine-in-out')
+  })
+  
+  # Tổng doanh thu theo tháng năm
+  dates <- dataset$Date
+  print(dates)
+  mydates <- as.Date(dates, "%d-%m-%Y")
+  mydates <- unique(mydates[!is.na(mydates)])
+  print(mydates)
+  dfDate <- data.frame(mydates)
+  dfDate <- as_tbl_time(dfDate, index = mydates)
+  dateFilter <- filter_time(dfDate, '2016' ~ '2016')
+  dfDate <- data.frame(dateFilter$mydates)
+  View(dfDate)
+  
+  output$revenue_chart_total_revenue <- renderPlotly({
+    
   })
 }

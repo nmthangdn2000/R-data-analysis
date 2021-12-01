@@ -6,6 +6,8 @@ library(DT)
 library(ggplot2)
 library(plotly)
 library(gganimate)
+library(babynames)
+library(hrbrthemes)
 
 # import tab
 source('component/home.r')
