@@ -1,0 +1,48 @@
+install.packages("dplyr")
+library(dplyr)
+
+#read and write data
+
+rm(list = ls()) # delete all variable
+rm(d2) # delete variable d2
+data()
+#read from package
+AirPassengers
+d1 <- AirPassengers
+d1
+
+#@read from pc
+
+#@@read file .csv
+
+# d2 <- read.csv("D:\\dataset\\OnlineRetail.csv") #method 1
+
+d2 <- read.csv("D:/dataset/OnlineRetail.csv") # method 2
+d2
+dim(d2) # get totalcolumns and row
+View(d2)
+str(d2) # get variable infor
+names(d2) # get variable names
+
+d3 <- read.csv("D:/dataset/OnlineRetail.csv", header = T, sep = ",")
+
+#@@read file .txt
+
+d4 <- read.table("D:/dataset/adult.txt")
+dim(d4)
+View(d4)
+
+
+#
+d5 <- read.csv("D:/dataset/breast_cancer.csv")
+
+rm(list = ls())
+d <- mtcars
+edit(d)
+
+d[1]
+names(d)
+
+mydata <- filter(d)
+
+View(mydata)
