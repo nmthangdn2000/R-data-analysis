@@ -1,5 +1,6 @@
 library(tibbletime)
 library(dplyr)
+library(stringr)
 
 # import service
 source('service/home.service.r')
