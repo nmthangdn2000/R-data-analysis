@@ -1,3 +1,5 @@
+source('component/loader.r')
+
 home <- tabItem("home",
    #  div(
    #    DT::dataTableOutput("table_basket"),style = "height:100%; width:100%"
@@ -16,7 +18,8 @@ home <- tabItem("home",
    div(
      div(
        class = "revenue-chart",
-       style = "height:100%; width:100%;",
+       style = "height:100%; width:100%; position: relative;",
+       loader,
        div(
          h3('Order by day')
        ),
@@ -28,7 +31,8 @@ home <- tabItem("home",
      style = "display: flex",
      div(
        class = "revenue-chart",
-       style = "height:100%; width:100%; flex: 0 0 50%; margin-right: 10px",
+       style = "height:100%; width:100%; flex: 0 0 50%; margin-right: 10px; position: relative;",
+       loader,
        div(
          h3('Top 5 most purchased products')
        ),
@@ -36,7 +40,8 @@ home <- tabItem("home",
      ),                 
      div(
        class = "revenue-chart",
-       style = "height:100%; width:100%; flex: 0 0 50%; margin-left: 10px; margin-right: 100px",
+       style = "height:100%; width:100%; flex: 0 0 50%; margin-left: 10px; margin-right: 100px; position: relative;",
+       loader,
        div(
          style = "display: flex; justify-content: space-between;",
          h3('Total revenue'),

@@ -55,11 +55,13 @@ sidebar <- dashboardSidebar(
 body <- dashboardBody(
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "css/index.css"),
+    tags$link(rel = "stylesheet", type = "text/css", href = "css/loader.css")
   ),
   tabItems(
     home,
     revenue
-  )
+  ),
+  includeScript("./www/js/index.js")
 )
 
 # 1. d) This code generates the UI based on all the above elements --------
