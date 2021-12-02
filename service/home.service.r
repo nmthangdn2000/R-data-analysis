@@ -7,6 +7,55 @@ homeService <- function(input, output, dataset){
   #     )
   #   )
   # })
+  # Đơn hàng theo ngày
+  
+  output$revenue_chart_order <- renderPlot({
+    
+    dates <- dataset$Date
+    as.Date(dataset$Date, "%m/%d/%Y")
+    mydates <- as.Date(dates, "%m/%d/%Y")
+    listDate <- unique(dates)
+    totalOrder <- c()
+    for (d in listDate) {
+      item <- dataset[dataset$Date == d,]
+      total <- 0
+      for (p in item$TotalNumber) {
+        if(!is.na(p)) total <- total + p
+      }
+      totalOrder <- c(totalOrder, total)
+    }
+    
+    data <- data.frame(listDate, totalOrder)
+    colnames(data) <- c("Date", "Order")
+    data <- head(data, 15)
+    
+    g <- ggplot(data=data, aes(x=Date, y=Order, group=1)) +
+      geom_text(aes(label=Order), position=position_dodge(width=0.9), vjust=-0.25, size=5)+
+      geom_smooth(
+        method = "loess",
+        se = FALSE,
+        formula = 'y ~ x',
+        span = 0.2,
+        color = "green"
+      ) +
+      stat_smooth(
+        se=FALSE, geom="area",
+        method = 'loess', alpha=.2,
+        span = 0.2,
+        fill = "green"
+      )
+    g + theme(
+      text = element_text(size=18),
+      axis.text.x = element_text(angle = 45, vjust=0.5),
+      panel.background=element_blank(),
+      panel.border=element_blank(),
+      panel.grid.major=element_blank(),
+      panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+      plot.background=element_blank()
+    )
+  })
+  
+  
   # top 5 sản phẩm mua nhiều nhất
   output$revenue_chart_top_5 <- renderPlot({
     top5Price <- c()
@@ -14,7 +63,7 @@ homeService <- function(input, output, dataset){
       item <- dataset[dataset$Item == i,]
       total <- 0
       for (p in item$Price) {
-        total <- total + p
+        if(!is.na(p)) total <- total + p
       }
       top5Price <- c(top5Price, total)
       
@@ -31,6 +80,7 @@ homeService <- function(input, output, dataset){
       geom_bar(stat="identity", width=0.5)+
       geom_text(aes(label=paste( round(TotalPrice,digits=2), " EURO", sep="")), position=position_dodge(width=0.9), vjust=-0.25, size=5)
     gp + theme(
+      text = element_text(size=18),
       panel.background=element_blank(),
       panel.border=element_blank(),
       panel.grid.major=element_blank(),
@@ -48,8 +98,7 @@ homeService <- function(input, output, dataset){
     dates <- dataset$Date
     as.Date(dataset$Date, "%m/%d/%Y")
     mydates <- as.Date(dates, "%m/%d/%Y")
-    
-    # mydates <- unique(mydates[!is.na(mydates)])
+
     dfDate <- data.frame(mydates)
     dfDate <- as_tbl_time(dfDate, index = mydates)
     dateFilter <- filter_time(dfDate, yearInput ~ yearInput)
@@ -75,11 +124,12 @@ homeService <- function(input, output, dataset){
       geom_bar(stat="identity", width=0.5)+
       geom_text(aes(label=paste( round(TotalPrice,digits=2), " EURO", sep="")), position=position_dodge(width=0.9), vjust=-0.25, size=5)
     gp + theme(
-        panel.background=element_blank(),
-        panel.border=element_blank(),
-        panel.grid.major=element_blank(),
-        panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-        plot.background=element_blank()
-      )
+      text = element_text(size=18),
+      panel.background=element_blank(),
+      panel.border=element_blank(),
+      panel.grid.major=element_blank(),
+      panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+      plot.background=element_blank()
+    )
   })
 }

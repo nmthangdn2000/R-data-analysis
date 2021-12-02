@@ -11,6 +11,7 @@ library(hrbrthemes)
 library(tidyverse)
 library(palmerpenguins)
 theme_set(theme_bw(16))
+theme_set(theme_classic())
 
 # import tab
 source('component/home.r')

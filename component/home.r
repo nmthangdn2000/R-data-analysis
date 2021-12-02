@@ -14,6 +14,17 @@ home <- tabItem("home",
      valueBox(10 * 2, "Orders", icon = icon("shopping-cart"), width = 3)
    ),
    div(
+     div(
+       class = "revenue-chart",
+       style = "height:100%; width:100%;",
+       div(
+         h3('Order by day')
+       ),
+       plotOutput("revenue_chart_order")
+     ),
+   ),
+   br(),
+   div(
      style = "display: flex",
      div(
        class = "revenue-chart",
