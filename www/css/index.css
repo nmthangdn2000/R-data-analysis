@@ -1,3 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+body{
+  font-family: poppins,sans-serif;
+}
+
 a{
   color: white !important;
 }
+.small-box .icon-large{
+  right: 10px;
+}
+.small-box.bg-aqua{
+  border-radius: 10px;
+  background-color: white !important;
+}
+.row .col-sm-3:nth-child(1) .small-box.bg-aqua .inner{
+  border-top:5px solid #864ad1 !important;
+}
+.row .col-sm-3:nth-child(2) .small-box.bg-aqua .inner{
+  border-top:5px solid #ffac30 !important;
+}
+.row .col-sm-3:nth-child(3) .small-box.bg-aqua .inner{
+  border-top:5px solid #43dc80 !important;
+}
+.row .col-sm-3:nth-child(4) .small-box.bg-aqua .inner{
+  border-top:5px solid #51a6f5 !important;
+}
+.row .col-sm-3:nth-child(1) .small-box.bg-aqua .icon-large{
+  color: #864ad1;
+}
+.row .col-sm-3:nth-child(2) .small-box.bg-aqua .icon-large{
+   color: #ffac30;
+}
+.row .col-sm-3:nth-child(3) .small-box.bg-aqua .icon-large{
+   color: #43dc80;
+}
+.row .col-sm-3:nth-child(4) .small-box.bg-aqua .icon-large{
+   color: #51a6f5;
+}
+.small-box.bg-aqua .inner h3{
+  font-size: 58px;
+  font-weight: 700;
+}
+.small-box.bg-aqua .inner h3,
+.small-box.bg-aqua .inner p{
+  color: #000 !important;
+}
+.revenue-chart{
+  padding: 10px;
+  background: white;
+  border-radius: 10px;
+}
+.revenue-chart h3{
+  font-weight: 700;
+}
+.divSelect > .form-group{
+  margin-bottom: 0 !important;
+}
+
+
+
+

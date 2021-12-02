@@ -8,6 +8,9 @@ library(plotly)
 library(gganimate)
 library(babynames)
 library(hrbrthemes)
+library(tidyverse)
+library(palmerpenguins)
+theme_set(theme_bw(16))
 
 # import tab
 source('component/home.r')
@@ -20,7 +23,6 @@ source('component/revenue.r')
 # 4. Create server that responds to user interaction
 # 5. Deploy App
 # -------------------------------------------------------------------------
-
 # 1. a) Header ------------------------------------------------------------------
 header <- dashboardHeader(
   title="Nguyễn Minh Thắng"
@@ -51,7 +53,7 @@ sidebar <- dashboardSidebar(
 
 body <- dashboardBody(
   tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "css/index.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "css/index.css"),
   ),
   tabItems(
     home,
