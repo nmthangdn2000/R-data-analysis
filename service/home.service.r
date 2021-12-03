@@ -17,12 +17,9 @@ homeService <- function(input, output, dataset){
     listDate <- unique(dates)
     totalOrder <- c()
     for (d in listDate) {
-      item <- dataset[dataset$Date == d,]
-      total <- 0
-      for (p in item$TotalNumber) {
-        if(!is.na(p)) total <- total + p
-      }
-      totalOrder <- c(totalOrder, total)
+      item <- unique(dataset$Transaction[dataset$Date == d])
+      totalOrder <- c(totalOrder, length(item))
+      
     }
     
     data <- data.frame(listDate, totalOrder)
