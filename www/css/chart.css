@@ -1,0 +1,8 @@
+
+.highcharts-tooltip-box {
+    fill: white;
+    fill-opacity: 0.8;
+    stroke-width: 0;
+    stroke: green;
+    stroke-width: 2;
+}

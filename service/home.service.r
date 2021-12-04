@@ -9,7 +9,7 @@ homeService <- function(input, output, dataset){
   # })
   # Đơn hàng theo ngày
   
-  output$revenue_chart_order <- renderPlot({
+  output$revenue_chart_order <- renderHighchart({
     
     dates <- dataset$Date
     as.Date(dataset$Date, "%m/%d/%Y")
@@ -26,35 +26,49 @@ homeService <- function(input, output, dataset){
     colnames(data) <- c("Date", "Order")
     data <- head(data, 15)
     
-    g <- ggplot(data=data, aes(x=Date, y=Order, group=1)) +
-      geom_text(aes(label=Order), position=position_dodge(width=0.9), vjust=-0.25, size=5)+
-      geom_smooth(
-        method = "loess",
-        se = FALSE,
-        formula = 'y ~ x',
-        span = 0.2,
-        color = "green"
-      ) +
-      stat_smooth(
-        se=FALSE, geom="area",
-        method = 'loess', alpha=.2,
-        span = 0.2,
-        fill = "green"
-      )
-    g + theme(
-      text = element_text(size=18),
-      axis.text.x = element_text(angle = 45, vjust=0.5),
-      panel.background=element_blank(),
-      panel.border=element_blank(),
-      panel.grid.major=element_blank(),
-      panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-      plot.background=element_blank()
-    )
+    hchart(data, hcaes(x=Date,y=Order),type="area",color="#43dc80", fillOpacity = 0.3) %>%
+      hc_exporting(enabled = TRUE) %>% 
+      hc_tooltip(crosshairs = TRUE, backgroundColor = "#FCFFC5",
+                 shared = TRUE, borderWidth = 2) %>%
+      hc_xAxis(
+        title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+        labels = list(style = list(fontSize = "12px", fontWeight = "600"), rotation = -45)
+      )%>%
+      hc_yAxis(
+        title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+        labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+      )%>%
+      hc_add_theme(hc_theme_elementary())
+    
+    # g <- ggplot(data=data, aes(x=Date, y=Order, group=1)) +
+    #   geom_text(aes(label=Order), position=position_dodge(width=0.9), vjust=-0.25, size=5)+
+    #   geom_smooth(
+    #     method = "loess",
+    #     se = FALSE,
+    #     formula = 'y ~ x',
+    #     span = 0.2,
+    #     color = "green"
+    #   ) +
+    #   stat_smooth(
+    #     se=FALSE, geom="area",
+    #     method = 'loess', alpha=.2,
+    #     span = 0.2,
+    #     fill = "green"
+    #   )
+    # g + theme(
+    #   text = element_text(size=18),
+    #   axis.text.x = element_text(angle = 45, vjust=0.5),
+    #   panel.background=element_blank(),
+    #   panel.border=element_blank(),
+    #   panel.grid.major=element_blank(),
+    #   panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+    #   plot.background=element_blank()
+    # )
   })
   
   
   # top 5 sản phẩm mua nhiều nhất
-  output$revenue_chart_top_5 <- renderPlot({
+  output$revenue_chart_top_5 <- renderHighchart({
     top5Price <- c()
     for (i in unique(dataset$Item)) {
       item <- dataset[dataset$Item == i,]
@@ -73,23 +87,44 @@ homeService <- function(input, output, dataset){
     
     data <- data.frame(Item=top5$Item, TotalPrice=top5$TotalPrice)
     
-    gp <- ggplot(data=data, aes(x=Item, y=TotalPrice, fill=Item)) + 
-      geom_bar(stat="identity", width=0.5)+
-      geom_text(aes(label=paste( round(TotalPrice,digits=2), " EURO", sep="")), position=position_dodge(width=0.9), vjust=-0.25, size=5)
-    gp + theme(
-      text = element_text(size=18),
-      panel.background=element_blank(),
-      panel.border=element_blank(),
-      panel.grid.major=element_blank(),
-      panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-      plot.background=element_blank()
-    )
+    hchart(data, hcaes(x=Item,y=TotalPrice, color = TotalPrice), type="column"
+           , showInLegend = TRUE, dataLabels = list(enabled = TRUE, format = '{point.y: .2f} $')) %>%
+      hc_exporting(enabled = TRUE) %>% 
+      hc_tooltip(
+        crosshairs = TRUE,
+        backgroundColor = "#FCFFC5",
+        shared = TRUE,
+        borderWidth = 2,
+        pointFormat = "<span style='color:{point.color}'>\u25CF</span> TotalPrice: {point.y: .2f} $<br>",
+        headerFormat = "<b style = 'font-size: 20px; color: red'> {point.key} </b><br>"
+      ) %>%
+      hc_xAxis(
+        title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+        labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+      )%>%
+      hc_yAxis(
+        title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+        labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+      )%>%
+      hc_add_theme(hc_theme_elementary())
+    
+    # gp <- ggplot(data=data, aes(x=Item, y=TotalPrice, fill=Item)) + 
+    #   geom_bar(stat="identity", width=0.5)+
+    #   geom_text(aes(label=paste( round(TotalPrice,digits=2), " EURO", sep="")), position=position_dodge(width=0.9), vjust=-0.25, size=5)
+    # gp + theme(
+    #   text = element_text(size=18),
+    #   panel.background=element_blank(),
+    #   panel.border=element_blank(),
+    #   panel.grid.major=element_blank(),
+    #   panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+    #   plot.background=element_blank()
+    # )
   })
   
   # Tổng doanh thu theo tháng năm
   
   
-  output$revenue_chart_total_revenue <- renderPlot({
+  output$revenue_chart_total_revenue <- renderHighchart({
     yearInput <- input$select_year
     print(yearInput)
     dates <- dataset$Date
@@ -116,17 +151,32 @@ homeService <- function(input, output, dataset){
     
     df <- data.frame(listMonth, totalPrice)
     colnames(df) <- c("Month", "TotalPrice")
-    
-    gp <- ggplot(data=df, aes(x=Month, y=TotalPrice, fill=Month)) + 
-      geom_bar(stat="identity", width=0.5)+
-      geom_text(aes(label=paste( round(TotalPrice,digits=2), " EURO", sep="")), position=position_dodge(width=0.9), vjust=-0.25, size=5)
-    gp + theme(
-      text = element_text(size=18),
-      panel.background=element_blank(),
-      panel.border=element_blank(),
-      panel.grid.major=element_blank(),
-      panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-      plot.background=element_blank()
-    )
+
+    hchart(df, hcaes(x=Month,y=TotalPrice, color = TotalPrice), type="column"
+           , showInLegend = TRUE, dataLabels = list(enabled = TRUE, format = '{point.y: .2f} euro')) %>%
+      hc_exporting(enabled = TRUE) %>% 
+      hc_tooltip(crosshairs = TRUE, backgroundColor = "#FCFFC5",
+                 shared = TRUE, borderWidth = 2) %>%
+      hc_xAxis(
+        title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+        labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+      )%>%
+      hc_yAxis(
+        title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+        labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+      )%>%
+      hc_add_theme(hc_theme_elementary())
+        
+    # gp <- ggplot(data=df, aes(x=Month, y=TotalPrice, fill=Month)) + 
+    #   geom_bar(stat="identity", width=0.5)+
+    #   geom_text(aes(label=paste( round(TotalPrice,digits=2), " EURO", sep="")), position=position_dodge(width=0.9), vjust=-0.25, size=5)
+    # gp + theme(
+    #   text = element_text(size=18),
+    #   panel.background=element_blank(),
+    #   panel.border=element_blank(),
+    #   panel.grid.major=element_blank(),
+    #   panel.grid.major.y = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+    #   plot.background=element_blank()
+    # )
   })
 }

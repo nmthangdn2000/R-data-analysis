@@ -13,6 +13,7 @@ library(highcharter)
 library(arules)
 library(arulesViz)
 library(palmerpenguins)
+library(highcharter)
 theme_set(theme_bw(16))
 theme_set(theme_classic())
 
@@ -60,7 +61,8 @@ sidebar <- dashboardSidebar(
 body <- dashboardBody(
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "css/index.css"),
-    tags$link(rel = "stylesheet", type = "text/css", href = "css/loader.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "css/loader.css"),
+    tags$link(rel = "stylesheet", type = "text/css", href = "css/chart.css")
   ),
   tabItems(
     home,

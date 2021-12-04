@@ -23,7 +23,8 @@ home <- tabItem("home",
        div(
          h3('Order by day')
        ),
-       plotOutput("revenue_chart_order")
+       # plotOutput("revenue_chart_order")
+       highchartOutput("revenue_chart_order")
      ),
    ),
    br(),
@@ -36,7 +37,7 @@ home <- tabItem("home",
        div(
          h3('Top 5 most purchased products')
        ),
-       plotOutput("revenue_chart_top_5")
+       highchartOutput("revenue_chart_top_5")
      ),                 
      div(
        class = "revenue-chart",
@@ -51,7 +52,7 @@ home <- tabItem("home",
            selectInput("select_year", NULL, c("2016", "2017"))
          )
        ),
-       plotOutput("revenue_chart_total_revenue")
+       highchartOutput("revenue_chart_total_revenue")
      ), 
    ) 
 )
