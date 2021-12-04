@@ -9,6 +9,9 @@ library(gganimate)
 library(babynames)
 library(hrbrthemes)
 library(tidyverse)
+library(highcharter)
+library(arules)
+library(arulesViz)
 library(palmerpenguins)
 theme_set(theme_bw(16))
 theme_set(theme_classic())
@@ -16,6 +19,7 @@ theme_set(theme_classic())
 # import tab
 source('component/home.r')
 source('component/revenue.r')
+source('component/predict.r')
 
 # Layout/Table of Contents ------------------------------------------------
 # 1. Create Header, Sidebar, Body --> UI
@@ -38,6 +42,7 @@ sidebar <- dashboardSidebar(
     id = 'MenuTabs',
     menuItem("Home", tabName = "home", selected = TRUE),
     menuItem("Revenue", tabName = "revenue"),
+    menuItem("Predict", tabName = "predict"),
     uiOutput('ui')
   )
 
@@ -59,7 +64,8 @@ body <- dashboardBody(
   ),
   tabItems(
     home,
-    revenue
+    revenue,
+    predict
   ),
   includeScript("./www/js/index.js")
 )
