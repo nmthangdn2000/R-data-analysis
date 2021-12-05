@@ -28,8 +28,12 @@ homeService <- function(input, output, dataset){
     
     hchart(data, hcaes(x=Date,y=Order),type="area",color="#43dc80", fillOpacity = 0.3) %>%
       hc_exporting(enabled = TRUE) %>% 
-      hc_tooltip(crosshairs = TRUE, backgroundColor = "#FCFFC5",
-                 shared = TRUE, borderWidth = 2) %>%
+      hc_tooltip(
+        crosshairs = TRUE, backgroundColor = "#FCFFC5",
+        shared = TRUE, borderWidth = 2,
+        pointFormat = "<span style='color:{point.color}'>\u25CF</span> Order: {point.y: .2f} $<br>",
+        headerFormat = "<b style = 'font-size: 20px; color: red'> {point.key} </b><br>"         
+      ) %>%
       hc_xAxis(
         title = list(style = list(fontSize = "16px", fontWeight = "600")), 
         labels = list(style = list(fontSize = "12px", fontWeight = "600"), rotation = -45)
@@ -155,8 +159,12 @@ homeService <- function(input, output, dataset){
     hchart(df, hcaes(x=Month,y=TotalPrice, color = TotalPrice), type="column"
            , showInLegend = TRUE, dataLabels = list(enabled = TRUE, format = '{point.y: .2f} euro')) %>%
       hc_exporting(enabled = TRUE) %>% 
-      hc_tooltip(crosshairs = TRUE, backgroundColor = "#FCFFC5",
-                 shared = TRUE, borderWidth = 2) %>%
+      hc_tooltip(
+        crosshairs = TRUE, backgroundColor = "#FCFFC5",
+        shared = TRUE, borderWidth = 2,
+        pointFormat = "<span style='color:{point.color}'>\u25CF</span> TotalPrice: {point.y: .2f} $<br>",
+        headerFormat = "<b style = 'font-size: 20px; color: red'> {point.key} </b><br>" 
+      ) %>%
       hc_xAxis(
         title = list(style = list(fontSize = "16px", fontWeight = "600")), 
         labels = list(style = list(fontSize = "12px", fontWeight = "600"))

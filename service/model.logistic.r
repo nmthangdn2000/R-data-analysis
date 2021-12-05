@@ -38,7 +38,7 @@
 # 
 # View(basket)
 # write.csv(basket,"F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket2.csv", row.names = FALSE)
-basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket2.csv")
+basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket.csv")
 
 # install.packages("caTools")
 library(caTools)

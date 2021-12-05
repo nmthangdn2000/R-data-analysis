@@ -46,12 +46,12 @@ a{
 .small-box.bg-aqua .inner p{
   color: #000 !important;
 }
-.revenue-chart{
+.card__{
   padding: 10px;
   background: white;
   border-radius: 10px;
 }
-.revenue-chart h3{
+.card__ h3{
   font-weight: 700;
 }
 .divSelect > .form-group{
@@ -74,6 +74,30 @@ a{
   display: flex;
   align-items: center;
 }
-
-
+.card__ table{
+  font-size: 16px;
+}
+.card__ table td{
+  padding: 15px 20px !important;
+  border-top: none !important;
+}
+.fa.fa-male {
+  color: #43dc80;
+  font-size: 20px;
+  margin-right: 10px;
+}
+.fa.fa-female {
+  color: #ff4c41;
+  font-size: 20px;
+  margin-right: 10px;
+}
+.card__ table td img{
+  margin-right: 10px;
+}
+.selectize-input{
+  width: 60%;
+}
+.shiny-input-container:not(.shiny-input-container-inline){
+  width: 250px !important;
+}
 

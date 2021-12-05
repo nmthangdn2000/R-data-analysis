@@ -14,12 +14,13 @@ library(arules)
 library(arulesViz)
 library(palmerpenguins)
 library(highcharter)
+library(knitr)
 theme_set(theme_bw(16))
 theme_set(theme_classic())
 
 # import tab
 source('component/home.r')
-source('component/revenue.r')
+source('component/table.r')
 source('component/predict.r')
 
 # Layout/Table of Contents ------------------------------------------------
@@ -42,7 +43,7 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     id = 'MenuTabs',
     menuItem("Home", tabName = "home", selected = TRUE),
-    menuItem("Revenue", tabName = "revenue"),
+    menuItem("Table", tabName = "table"),
     menuItem("Predict", tabName = "predict"),
     uiOutput('ui')
   )
@@ -62,11 +63,13 @@ body <- dashboardBody(
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "css/index.css"),
     tags$link(rel = "stylesheet", type = "text/css", href = "css/loader.css"),
-    tags$link(rel = "stylesheet", type = "text/css", href = "css/chart.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "css/chart.css"),
+    
   ),
+  tags$style(HTML('table.dataTable tr.selected td, table.dataTable td.selected {background-color: #caf7dc !important;}')),
   tabItems(
     home,
-    revenue,
+    tableUI,
     predict
   ),
   includeScript("./www/js/index.js")

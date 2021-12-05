@@ -17,7 +17,7 @@ home <- tabItem("home",
    ),
    div(
      div(
-       class = "revenue-chart",
+       class = "card__",
        style = "height:100%; width:100%; position: relative;",
        loader,
        div(
@@ -31,7 +31,7 @@ home <- tabItem("home",
    div(
      style = "display: flex",
      div(
-       class = "revenue-chart",
+       class = "card__",
        style = "height:100%; width:100%; flex: 0 0 50%; margin-right: 10px; position: relative;",
        loader,
        div(
@@ -40,7 +40,7 @@ home <- tabItem("home",
        highchartOutput("revenue_chart_top_5")
      ),                 
      div(
-       class = "revenue-chart",
+       class = "card__",
        style = "height:100%; width:100%; flex: 0 0 50%; margin-left: 10px; margin-right: 100px; position: relative;",
        loader,
        div(
