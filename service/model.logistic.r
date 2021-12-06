@@ -38,9 +38,10 @@
 # 
 # View(basket)
 # write.csv(basket,"F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket2.csv", row.names = FALSE)
-basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket.csv")
-
-# install.packages("caTools")
+basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket2.csv")
+str(basket2)
+pairs(head(basket2, 1000))
+  # install.packages("caTools")
 library(caTools)
 #  chia bộ dữ liệu 
 set.seed(100)
@@ -77,6 +78,21 @@ plot(ROCRperf, colorize=TRUE)
 plot(ROCRperf, colorize=TRUE, print.cutoffs.at=seq(0,1,by=0.1), text.adj=c(-0.2,1.7))
 
 as.numeric(performance(ROCRpred, "auc")@y.values)
+
+x <- basket2$weekday_weekend
+y <- basket2$TotalNumber
+
+hoiquy <- lm(y ~ x)
+# y = 1.56482 + 0.02239.x
+# Estimate: Hệ số beta của mô hình hồi quy
+# Std,Error: Độ lệch chuẩn của ước lượng hệ số beta tương ứng
+# t-value = Estimate/Std.Error: Là giá trị t trong kiểm định
+
+summary(hoiquy)
+a <- data.frame(x = 1)
+predictData<- predict(hoiquy, a )
+print(predictData)
+
 
 
 
