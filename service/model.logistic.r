@@ -38,7 +38,8 @@
 # 
 # View(basket)
 # write.csv(basket,"F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket2.csv", row.names = FALSE)
-basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket2.csv")
+basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket.csv")
+unique(basket2$Payment)
 str(basket2)
 pairs(head(basket2, 1000))
   # install.packages("caTools")
@@ -79,17 +80,59 @@ plot(ROCRperf, colorize=TRUE, print.cutoffs.at=seq(0,1,by=0.1), text.adj=c(-0.2,
 
 as.numeric(performance(ROCRpred, "auc")@y.values)
 
-x <- basket2$weekday_weekend
-y <- basket2$TotalNumber
+basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket.csv")
+weekend <- basket2[basket2$weekday_weekend == "weekday",]
+library(tibbletime)
+weekend$Date <- as.Date(weekend$Date, "%m/%d/%Y")
+mydates <- unique(weekend$Date)
+mydates <- as.Date(mydates, "%m/%d/%Y")
+dfDate <- data.frame(mydates)
+dfDate <- as_tbl_time(dfDate, index = mydates)
+dateFilter <- filter_time(dfDate, "2017" ~ "2017")
+dateFilter
 
-hoiquy <- lm(y ~ x)
+totalProduct <- c()
+indexWeekend <- c()
+index <- 1
+for (data in dateFilter$mydates) {
+  rows <- weekend[weekend$Date == data,]
+  total <- 0
+  for (d in rows$TotalNumber) {
+    if(!is.na(d)) total <- total + d
+  }
+  totalProduct <- c(totalProduct, total)
+  indexWeekend <- c(indexWeekend, index)
+  index <- index + 1
+}
+# for (data in dateFilter$mydates) {
+#   rows <- weekend[weekend$Date == data,]
+#   total <- 0
+#   for (d in rows$TotalNumber) {
+#     if(!is.na(d)) total <- total + d
+#   }
+#   totalProduct <- c(totalProduct, total)
+#   indexWeekend <- c(indexWeekend, index)
+#   index <- index + 1
+# }
+indexWeekend
+totalProduct
+
+dataWeekend <- data.frame(weekend = indexWeekend, amout = totalProduct)
+dataWeekend
+
+weekend <- dataWeekend$weekend
+amout <- dataWeekend$amout
+
+hoiquy <- lm(amout ~ weekend)
 # y = 1.56482 + 0.02239.x
 # Estimate: Hệ số beta của mô hình hồi quy
 # Std,Error: Độ lệch chuẩn của ước lượng hệ số beta tương ứng
 # t-value = Estimate/Std.Error: Là giá trị t trong kiểm định
+plot(amout ~ weekend, data=dataWeekend)
+abline(hoiquy,col="red")
 
 summary(hoiquy)
-a <- data.frame(x = 1)
+a <- data.frame(weekend = c(31,33,10))
 predictData<- predict(hoiquy, a )
 print(predictData)
 

@@ -29,10 +29,10 @@ home <- tabItem("home",
    ),
    br(),
    div(
-     style = "display: flex",
+     style = "display: flex; justify-content: space-between;width: 100%",
      div(
        class = "card__",
-       style = "height:100%; width:100%; flex: 0 0 50%; margin-right: 10px; position: relative;",
+       style = "height:100%; width:100%; flex: 0 0 49%; margin-right: 10px; position: relative;",
        loader,
        div(
          h3('Top 5 most purchased products')
@@ -41,7 +41,7 @@ home <- tabItem("home",
      ),                 
      div(
        class = "card__",
-       style = "height:100%; width:100%; flex: 0 0 50%; margin-left: 10px; margin-right: 100px; position: relative;",
+       style = "height:100%; width:100%; flex: 0 0 49%;",
        loader,
        div(
          style = "display: flex; justify-content: space-between;",
