@@ -94,12 +94,16 @@ a{
 .card__ table td img{
   margin-right: 10px;
 }
-/*
 .selectize-input{
-  width: 60%;
+  width: 80%;
 }
-*/
 .shiny-input-container:not(.shiny-input-container-inline){
   width: 250px !important;
 }
-
+.divSelect > div{
+  max-width: 200px;
+}
+.card__order .divSelect > div:last-child{
+  max-width: 50px !important;
+  z-index: 100;
+}
