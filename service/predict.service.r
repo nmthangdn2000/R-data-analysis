@@ -100,15 +100,16 @@ predictService <- function(input, output, dataset, data.trans) {
       hc_add_series(modelToChart, "line", hcaes(x = weekend, y = .fitted))
     # 
     # summary(modelLinear)
+     
   })
-
+  observeEvent(input$select_year_linear, {
+    output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared * 100, digits = 2), "%", sep = " "))
+  })
+  output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared * 100, digits = 2), "%", sep = " "))
   observeEvent(input$btn_predict_linear, {
     print(summary(modelLinear))
     weeks <- input$input_week_linear
-    if(weeks == "") output$txt_acc <- renderText("aaaa")
-    else {
-      output$txt_acc <- renderText("aaaa")
-
+    if(weeks != "") {
       listWeek <- strsplit(weeks, split = ",", fixed = TRUE)
       list <- c()
       for (i in listWeek) {
@@ -120,7 +121,7 @@ predictService <- function(input, output, dataset, data.trans) {
       predictData <- predict(modelLinear, a )
 
       df <- data.frame(week = list, amout=predictData)
-      df <- data.frame(names = row.names(df), df)
+      df <- data.frame(df)
       
       output$table_predict_linear <- renderTable(df)
     }
