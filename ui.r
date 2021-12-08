@@ -17,6 +17,12 @@ library(arulesViz)
 library(palmerpenguins)
 library(highcharter)
 library(knitr)
+library(tm)
+library(SnowballC)
+library(wordcloud)
+library(RColorBrewer)
+library(syuzhet)
+library(lubridate)
 theme_set(theme_bw(16))
 theme_set(theme_classic())
 
@@ -70,7 +76,15 @@ body <- dashboardBody(
     tags$link(rel = "stylesheet", type = "text/css", href = "css/chart.css"),
     
   ),
-  tags$style(HTML('table.dataTable tr.selected td, table.dataTable td.selected {background-color: #caf7dc !important;}')),
+  tags$style(HTML('table.dataTable tr.selected td, table.dataTable td.selected {background-color: #caf7dc !important;}
+                  .card__ table tr > td:last-child{
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 79px;
+    max-width: 95px;
+}
+                  ')),
   tabItems(
     home,
     tableUI,

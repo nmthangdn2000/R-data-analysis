@@ -9,7 +9,7 @@ source('service/table.service.r')
 source('service/predict.service.r')
 source('service/revenue.service.r')
 
-basket <- read.csv("dataset/basket.csv")
+basket <- read.csv("dataset/basketnew.csv")
 # data_groups <- basket %>%
 #   group_by(Transaction) %>%
 #   summarize(total = n()) %>%

@@ -1,4 +1,42 @@
 homeService <- function(input, output, dataset){
+  output$sentiment_chart <- renderHighchart({
+    select_product <- input$select_product_home
+    if(length(select_product)== 0) select_product = "Bread"
+
+    
+    containItem <- dataset %>% filter(grepl(select_product, Item))
+    Comments <- iconv(head(containItem$Comment,100))
+    sentiment <- get_nrc_sentiment(Comments)
+    sentimentforchart <- data.frame(expression = character(),
+                                count = numeric())
+    name <- names(sentiment)
+    for(x in 1:10) {
+      held <- data.frame(expression = name[x], count = sum(sentiment[,x]))
+        sentimentforchart <- rbind(sentimentforchart, held)
+    }
+
+    hchart(sentimentforchart, hcaes(x=expression,y=count, color = expression), type="column"
+       , showInLegend = TRUE, dataLabels = list(enabled = TRUE, format = '{point.y: f}')) %>%
+    hc_exporting(enabled = TRUE) %>% 
+    hc_tooltip(
+      crosshairs = TRUE,
+      backgroundColor = "#FCFFC5",
+      shared = TRUE,
+      borderWidth = 2,
+      pointFormat = "<span style='color:{point.color}'>\u25CF</span> Count: {point.y: f}<br>",
+      headerFormat = "<b style = 'font-size: 20px; color: red'> {point.key} </b><br>"
+    ) %>%
+    hc_xAxis(
+      title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+      labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+    )%>%
+    hc_yAxis(
+      title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+      labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+    )%>%
+    hc_add_theme(hc_theme_elementary())
+
+  })
   # output$table_basket <- renderDataTable({
   #   datatable(
   #     dataset, 
