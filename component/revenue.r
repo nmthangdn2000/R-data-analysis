@@ -27,5 +27,17 @@ revenue <- tabItem("revenue",
       ),
       highchartOutput("revenue_chart_total_revenue")
     ), 
-  ) 
+  ),
+  div(
+    style = "display: flex; justify-content: space-between;width: 100%",
+    div(
+      class = "card__",
+      style = "height:100%; width:100%; flex: 0 0 100%; margin-right: 10px; position: relative;",
+      loader,
+      div(
+        h3('Orders By Day In Week')
+      ),
+      highchartOutput("orders_by_day_chart")
+    ),   
+  )
 )

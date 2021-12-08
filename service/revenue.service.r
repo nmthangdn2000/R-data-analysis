@@ -1,4 +1,30 @@
 revenueService <- function(input, output, dataset){
+  output$orders_by_day_chart <- renderHighchart({
+    get <- dataset%>%
+  group_by(dayinweek) %>%
+  summarise(total = length(dayinweek))
+  hchart(get, hcaes(x=dayinweek,y=total, color = dayinweek), type="column"
+           , showInLegend = TRUE, dataLabels = list(enabled = TRUE, format = '{point.y: f}')) %>%
+      hc_exporting(enabled = TRUE) %>% 
+      hc_tooltip(
+        crosshairs = TRUE,
+        backgroundColor = "#FCFFC5",
+        shared = TRUE,
+        borderWidth = 2,
+        pointFormat = "<span style='color:{point.color}'>\u25CF</span> Total Orders: {point.y: f}<br>",
+        headerFormat = "<b style = 'font-size: 20px; color: red'> {point.key} </b><br>"
+      ) %>%
+      hc_xAxis(
+        title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+        labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+      )%>%
+      hc_yAxis(
+        title = list(style = list(fontSize = "16px", fontWeight = "600")), 
+        labels = list(style = list(fontSize = "12px", fontWeight = "600"))
+      )%>%
+      hc_add_theme(hc_theme_elementary())
+  })
+
   # top 5 sản phẩm mua nhiều nhất
   output$revenue_chart_top_5 <- renderHighchart({
     top5Price <- c()
