@@ -7,6 +7,7 @@ library(broom)
 source('service/home.service.r')
 source('service/table.service.r')
 source('service/predict.service.r')
+source('service/revenue.service.r')
 
 basket <- read.csv("dataset/basket.csv")
 # data_groups <- basket %>%
@@ -57,4 +58,5 @@ server <- function(session, input, output) {
   homeService(input, output, basket)
   tableService(input, output, basket)
   predictService(input, output ,basket, data.trans)
+  revenueService(input, output ,basket)
 }

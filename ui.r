@@ -24,6 +24,7 @@ theme_set(theme_classic())
 source('component/home.r')
 source('component/table.r')
 source('component/predict.r')
+source('component/revenue.r')
 
 # Layout/Table of Contents ------------------------------------------------
 # 1. Create Header, Sidebar, Body --> UI
@@ -46,6 +47,7 @@ sidebar <- dashboardSidebar(
     id = 'MenuTabs',
     menuItem("Home", tabName = "home", selected = TRUE),
     menuItem("Table", tabName = "table"),
+    menuItem("Revenue", tabName = "revenue"),
     menuItem("Predict", tabName = "predict"),
     uiOutput('ui')
   )
@@ -72,6 +74,7 @@ body <- dashboardBody(
   tabItems(
     home,
     tableUI,
+    revenue,
     predict
   ),
   includeScript("./www/js/index.js")
