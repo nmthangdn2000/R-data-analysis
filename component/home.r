@@ -54,5 +54,26 @@ home <- tabItem("home",
        ),
        highchartOutput("revenue_chart_total_revenue")
      ), 
-   ) 
+   ),
+  br(),
+  div(
+    loader,
+    div(
+      class = "card__ flex-contianer",
+      div(
+        style = "display: flex, justify-content: space-between;",
+        div(
+          style = "display:flex; justify-content: space-between; flex-direction: row;",
+          h3("Sentiment Analysis"),
+          div(
+            class = "divSelect",
+            style = "display:flex; justify-content: space-between;flex; width: 150px; margin-top: 15px; height: 20px",
+            selectInput("select_product", NULL, c("Bread", "Scandinavian","Jam", "Tea", "Coffee", "Spanish Brunch"))
+          ),
+        ),
+        highchartOutput("sentiment_chart")
+      )
+
+    )
+  )
 )

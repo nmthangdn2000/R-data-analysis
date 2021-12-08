@@ -18,5 +18,5 @@ tableUI <- tabItem(
       ),
       DT::dataTableOutput("dataTable")
     ) 
-  )
+  ),
 )
