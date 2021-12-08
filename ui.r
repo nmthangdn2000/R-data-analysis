@@ -31,6 +31,7 @@ source('component/home.r')
 source('component/table.r')
 source('component/predict.r')
 source('component/revenue.r')
+source('component/customer.r')
 
 # Layout/Table of Contents ------------------------------------------------
 # 1. Create Header, Sidebar, Body --> UI
@@ -54,6 +55,7 @@ sidebar <- dashboardSidebar(
     menuItem("Home", tabName = "home", selected = TRUE),
     menuItem("Table", tabName = "table"),
     menuItem("Revenue", tabName = "revenue"),
+    menuItem("Customer", tabName = "customer"),
     menuItem("Predict", tabName = "predict"),
     uiOutput('ui')
   )
@@ -93,6 +95,7 @@ body <- dashboardBody(
   tabItems(
     home,
     tableUI,
+    customer,
     revenue,
     predict
   ),

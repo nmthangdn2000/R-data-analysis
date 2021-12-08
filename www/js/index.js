@@ -2,6 +2,7 @@
 let tab2 = 0
 let tab3 = 0
 let tab4 = 0
+let tab5 = 0
 
 $(document).ready(function(){
   loading(3500);
@@ -23,6 +24,11 @@ $(document).ready(function(){
          $(".divLoader").css("display", 'block');
          loading(2000);
          tab4 = 1;
+      }
+      else if(index == 4 && tab5 == 0){
+         $(".divLoader").css("display", 'block');
+         loading(2000);
+         tab5 = 1;
       }
       else return;
     })

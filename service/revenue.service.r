@@ -2,8 +2,8 @@ revenueService <- function(input, output, dataset){
   output$orders_by_day_chart <- renderHighchart({
   totaltransactions <- data.frame(dayinweek = numeric(),
                                 total = numeric())
-  for(x in unique(data$dayinweek)){
-    get <- unique(data$Transaction[data$dayinweek == x])
+  for(x in unique(dataset$dayinweek)){
+    get <- unique(dataset$Transaction[dataset$dayinweek == x])
     trans <- data.frame(dayinweek = x, total = length(get))
     totaltransactions <- rbind(totaltransactions, trans)  
   }
@@ -117,7 +117,7 @@ revenueService <- function(input, output, dataset){
     colnames(df) <- c("Month", "TotalPrice")
     
     hchart(df, hcaes(x=Month,y=TotalPrice, color = TotalPrice), type="column"
-           , showInLegend = TRUE, dataLabels = list(enabled = TRUE, format = '{point.y: .2f} euro')) %>%
+           , showInLegend = TRUE, dataLabels = list(enabled = TRUE, format = '{point.y: .2f} $')) %>%
       hc_exporting(enabled = TRUE) %>% 
       hc_tooltip(
         crosshairs = TRUE, backgroundColor = "#FCFFC5",

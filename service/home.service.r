@@ -143,19 +143,28 @@ homeService <- function(input, output, dataset){
     mydates <- as.Date(dates, "%m/%d/%Y")
     listDate <- unique(dates)
     totalOrder <- c()
+    totalPrice <- c()
     for (d in listDate) {
-      item <- unique(dataset$Transaction[dataset$Date == d])
+      transaction <- dataset$Transaction[dataset$Date == d]
+      price <- dataset$Price[dataset$Date == d]
+      item <- unique(transaction)
       totalOrder <- c(totalOrder, length(item))
-      
+      # total <- 0
+      # for (x in 1:length(transaction)) {
+      #    if(!is.na(price[x])) total <- total + transaction[x]*price[x]
+      #    else
+      # }
+      # totalPrice <- c(totalPrice, total)
     }
     
     data <- data.frame(listDate, totalOrder, listDate)
     colnames(data) <- c("Date", "Order", "Dtae2")
+
     data$Dtae2 <- as.Date(data$Dtae2, "%m/%d/%Y")
     data <- as_tbl_time(data, index = Dtae2)
     data <- filter_time(data, filterStartDay ~ filterEndDay)
     data <- tail(data, as.integer(show))
-    
+  
     hchart(data, hcaes(x=Date,y=Order),type="area",color="#43dc80", fillOpacity = 0.3) %>%
       hc_exporting(enabled = TRUE) %>% 
       hc_tooltip(

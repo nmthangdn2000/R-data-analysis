@@ -8,6 +8,7 @@ source('service/home.service.r')
 source('service/table.service.r')
 source('service/predict.service.r')
 source('service/revenue.service.r')
+source('service/customer.service.r')
 
 basket <- read.csv("dataset/basketnew.csv")
 # data_groups <- basket %>%
@@ -59,4 +60,5 @@ server <- function(session, input, output) {
   tableService(input, output, basket)
   predictService(input, output ,basket, data.trans)
   revenueService(input, output ,basket)
+  customerService(input, output ,basket)
 }
