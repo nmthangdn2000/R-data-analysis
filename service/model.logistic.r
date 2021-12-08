@@ -38,50 +38,53 @@
 # 
 # View(basket)
 # write.csv(basket,"F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket2.csv", row.names = FALSE)
+# basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket.csv")
+# unique(basket2$Payment)
+# str(basket2)
+# pairs(head(basket2, 1000))
+#   # install.packages("caTools")
+# library(caTools)
+# #  chia bộ dữ liệu 
+# set.seed(100)
+# split = sample.split(basket2$Gender, SplitRatio = 0.65)
+# 
+# train = subset(basket2, split == TRUE)
+# test = subset(basket2, split == FALSE)
+# train <- na.omit(train)
+# test <- na.omit(test)
+# 
+# model = glm(Gender ~., data = train, family = binomial)
+# summary(model)
+# 
+# predictTrain = predict(model, type = "response", newdata = train)
+# summary(predictTrain)
+# 
+# predictTest = predict(model, type = "response", newdata = test)
+# table(test$Gender, predictTest > 0.5)
+# 
+# # độ chính xác của mô hình
+# (505+5282)/nrow(test)
+# 
+# # độ chính xác của mô hình cở sở
+# (505+871)/nrow(test)
+# 
+# # install.packages("ROCR")
+# library(ROCR)
+# 
+# ROCRpred = prediction(predictTest, test$Gender)
+# ROCRperf = performance(ROCRpred, "tpr", "fpr")
+# 
+# plot(ROCRperf)
+# plot(ROCRperf, colorize=TRUE)
+# plot(ROCRperf, colorize=TRUE, print.cutoffs.at=seq(0,1,by=0.1), text.adj=c(-0.2,1.7))
+# 
+# as.numeric(performance(ROCRpred, "auc")@y.values)
+
 basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket.csv")
-unique(basket2$Payment)
 str(basket2)
-pairs(head(basket2, 1000))
-  # install.packages("caTools")
-library(caTools)
-#  chia bộ dữ liệu 
-set.seed(100)
-split = sample.split(basket2$Gender, SplitRatio = 0.65)
-
-train = subset(basket2, split == TRUE)
-test = subset(basket2, split == FALSE)
-train <- na.omit(train)
-test <- na.omit(test)
-
-model = glm(Gender ~., data = train, family = binomial)
-summary(model)
-
-predictTrain = predict(model, type = "response", newdata = train)
-summary(predictTrain)
-
-predictTest = predict(model, type = "response", newdata = test)
-table(test$Gender, predictTest > 0.5)
-
-# độ chính xác của mô hình
-(505+5282)/nrow(test)
-
-# độ chính xác của mô hình cở sở
-(505+871)/nrow(test)
-
-# install.packages("ROCR")
-library(ROCR)
-
-ROCRpred = prediction(predictTest, test$Gender)
-ROCRperf = performance(ROCRpred, "tpr", "fpr")
-
-plot(ROCRperf)
-plot(ROCRperf, colorize=TRUE)
-plot(ROCRperf, colorize=TRUE, print.cutoffs.at=seq(0,1,by=0.1), text.adj=c(-0.2,1.7))
-
-as.numeric(performance(ROCRpred, "auc")@y.values)
-
-basket2 <- read.csv("F:/kì 1 năm 4/Chuyên đề/dashboard/dataset/basket.csv")
-weekend <- basket2[basket2$weekday_weekend == "weekday",]
+unique(basket2$period_day)
+unique(basket2$weekday_weekend)
+weekend <- basket2[basket2$weekday_weekend == "weekend",]
 library(tibbletime)
 weekend$Date <- as.Date(weekend$Date, "%m/%d/%Y")
 mydates <- unique(weekend$Date)
@@ -97,11 +100,22 @@ index <- 1
 for (data in dateFilter$mydates) {
   rows <- weekend[weekend$Date == data,]
   total <- 0
-  for (d in rows$TotalNumber) {
-    if(!is.na(d)) total <- total + d
+  hold <- rows %>% 
+    filter(Date == data)
+  summa <- data.frame(Quantity = numeric(),
+                      price = numeric(),
+                      total = numeric())
+  for(x in 1:length(hold$Transaction)){
+    quantity = hold[x,6]
+    if(!is.na(quantity)) total <- total + quantity
+    totalProduct <- c(totalProduct, total)
+    indexWeekend <- c(indexWeekend, index)
   }
-  totalProduct <- c(totalProduct, total)
-  indexWeekend <- c(indexWeekend, index)
+  # for (d in rows$TotalNumber) {
+  #   if(!is.na(d)) total <- total + d
+  #   totalProduct <- c(totalProduct, total)
+  #   indexWeekend <- c(indexWeekend, index)
+  # }
   index <- index + 1
 }
 # for (data in dateFilter$mydates) {
@@ -118,7 +132,9 @@ indexWeekend
 totalProduct
 
 dataWeekend <- data.frame(weekend = indexWeekend, amout = totalProduct)
-dataWeekend
+
+set.seed(123)
+View(dataWeekend)
 
 weekend <- dataWeekend$weekend
 amout <- dataWeekend$amout

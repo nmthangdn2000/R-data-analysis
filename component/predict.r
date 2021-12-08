@@ -11,7 +11,8 @@ predict <- tabItem("predict",
              h3('Linear regression'),
              div(
                class = "divSelect",
-               style = "display: flex; justify-content: space-between; width: 150px;margin-top: 15px; height: 20px",
+               style = "display: flex; justify-content: space-between;margin-top: 15px; height: 20px",
+               selectInput("select_week_linear", NULL, c("weekday","weekend")),
                selectInput("select_year_linear", NULL, c(2016, 2017))
              )
            ),
@@ -43,7 +44,7 @@ predict <- tabItem("predict",
             h3('Relationship between products'),
             div(
               class = "divSelect",
-              style = "display: flex; justify-content: space-between; width: 150px;margin-top: 15px; height: 20px",
+              style = "display: flex; justify-content: space-between; margin-top: 15px; height: 20px",
               selectInput("select_product", NULL, c("Spanish Brunch", "Bread", "Coffee", "Cake", "Juice"))
             )
           ),
@@ -62,7 +63,7 @@ predict <- tabItem("predict",
             h3('Relationship between payment and quantity of product'),
             div(
               class = "divSelect",
-              style = "display: flex; justify-content: space-between; width: 150px;margin-top: 15px; height: 20px",
+              style = "display: flex; justify-content: space-between; margin-top: 15px; height: 20px",
               selectInput("select_payment", NULL, c("CreditPay","CashPay","OnlineWalletPay"))
             )
           ),

@@ -78,11 +78,16 @@ body <- dashboardBody(
   ),
   tags$style(HTML('table.dataTable tr.selected td, table.dataTable td.selected {background-color: #caf7dc !important;}
                   .card__ table tr > td:last-child{
+                   display: -webkit-box;
   white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 79px;
     max-width: 95px;
+    -webkit-line-clamp: 1; 
+           line-clamp: 1; 
+           -webkit-box-orient: vertical;
+              
 }
                   ')),
   tabItems(

@@ -1,7 +1,9 @@
 
 tableService <- function(input, output, dataset){
   str(dataset)
-  
+  colnames(dataset)[1] <- "Trans..."
+  colnames(dataset)[6] <- "Quatity"
+  colnames(dataset)[4] <- "week_day_end"
   nationality <- unique(dataset$Nationality)
   print(match("American", nationality))
   

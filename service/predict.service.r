@@ -58,9 +58,11 @@ predictService <- function(input, output, dataset, data.trans) {
   })
   
   output$predict_chart_linear <- renderHighchart({
+    typeWeek <- input$select_week_linear
+    if(length(typeWeek) == 0) typeWeek<- "weekday"
     filterYear <- input$select_year_linear
     
-    weekend <- dataset[dataset$weekday_weekend == "weekday",]
+    weekend <- dataset[dataset$weekday_weekend == typeWeek,]
     weekend$Date <- as.Date(weekend$Date, "%m/%d/%Y")
     mydates <- unique(weekend$Date)
     mydates <- as.Date(mydates, "%m/%d/%Y")
@@ -82,7 +84,7 @@ predictService <- function(input, output, dataset, data.trans) {
       index <- index + 1
     }
     
-    dataWeekend <- data.frame(weekend = indexWeekend, amout = totalProduct)
+    dataWeekend <<- data.frame(weekend = indexWeekend, amout = totalProduct)
     
     weekend <- dataWeekend$weekend
     amout <- dataWeekend$amout
@@ -103,6 +105,9 @@ predictService <- function(input, output, dataset, data.trans) {
      
   })
   observeEvent(input$select_year_linear, {
+    output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared * 100, digits = 2), "%", sep = " "))
+  })
+  observeEvent(input$select_week_linear, {
     output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared * 100, digits = 2), "%", sep = " "))
   })
   output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared * 100, digits = 2), "%", sep = " "))

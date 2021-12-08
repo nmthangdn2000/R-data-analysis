@@ -94,9 +94,7 @@ a{
 .card__ table td img{
   margin-right: 10px;
 }
-.selectize-input{
-  width: 80%;
-}
+
 .shiny-input-container:not(.shiny-input-container-inline){
   width: 250px !important;
 }
