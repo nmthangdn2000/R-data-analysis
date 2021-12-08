@@ -1,9 +1,13 @@
 revenueService <- function(input, output, dataset){
   output$orders_by_day_chart <- renderHighchart({
-    get <- dataset%>%
-  group_by(dayinweek) %>%
-  summarise(total = length(dayinweek))
-  hchart(get, hcaes(x=dayinweek,y=total, color = dayinweek), type="column"
+  totaltransactions <- data.frame(dayinweek = numeric(),
+                                total = numeric())
+  for(x in unique(data$dayinweek)){
+    get <- unique(data$Transaction[data$dayinweek == x])
+    trans <- data.frame(dayinweek = x, total = length(get))
+    totaltransactions <- rbind(totaltransactions, trans)  
+  }
+  hchart(totaltransactions, hcaes(x=dayinweek,y=total, color = dayinweek), type="column"
            , showInLegend = TRUE, dataLabels = list(enabled = TRUE, format = '{point.y: f}')) %>%
       hc_exporting(enabled = TRUE) %>% 
       hc_tooltip(
