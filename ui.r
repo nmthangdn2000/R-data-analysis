@@ -42,7 +42,7 @@ source('component/customer.r')
 # -------------------------------------------------------------------------
 # 1. a) Header ------------------------------------------------------------------
 header <- dashboardHeader(
-  title="Nguyễn Minh Thắng"
+  title="Dashboard"
 )
 
 

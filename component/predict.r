@@ -24,7 +24,7 @@ predict <- tabItem("predict",
              ),
              div(
                style = "flex: 0 0 30%",
-               div(style = "font-weight: bold", "Accuracy: "), textOutput('txt_acc'),
+               div(style = "font-weight: bold", "Coefficient of determination: "), textOutput('txt_acc'),
                textInput("input_week_linear", label = "Weeks", placeholder = "Enter number week"),
                actionButton("btn_predict_linear", "Predice"),
                tableOutput('table_predict_linear'),

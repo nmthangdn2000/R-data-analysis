@@ -10,7 +10,6 @@ customerService <- function(input, output ,basket) {
     }
     
     df <- data.frame(items, male, feMale)
-    View(df)
     
     df <- head(df, 10)
     

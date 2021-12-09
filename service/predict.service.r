@@ -105,12 +105,12 @@ predictService <- function(input, output, dataset, data.trans) {
      
   })
   observeEvent(input$select_year_linear, {
-    output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared * 100, digits = 2), "%", sep = " "))
+    output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared, digits = 2), "", sep = " "))
   })
   observeEvent(input$select_week_linear, {
-    output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared * 100, digits = 2), "%", sep = " "))
+    output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared, digits = 2), "", sep = " "))
   })
-  output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared * 100, digits = 2), "%", sep = " "))
+  output$txt_acc <- renderText(paste(round(summary(modelLinear)$r.squared, digits = 2), "", sep = " "))
   observeEvent(input$btn_predict_linear, {
     print(summary(modelLinear))
     weeks <- input$input_week_linear
